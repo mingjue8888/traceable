@@ -1,0 +1,14 @@
+{
+  "name": "@mingjue8888/traceable",
+  "version": "1.0.0",
+  "repository": "github:mingjue8888/traceable",
+  "description": "Functional workflow",
+  "keywords": [
+    "functional",
+    "functional programming"
+  ],
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "typescript": "^7.0.2"
+  }
+}
