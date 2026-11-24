@@ -1,13 +1,13 @@
 
 export interface Traceable<T extends object> {
-    add: <K extends string, E extends object>(key: K, findClue: (x: T) => Promise<E>) => Traceable<T & Record<K, E>>;
+    add: <K extends string, E>(key: K, findClue: (x: T) => Promise<E>) => Traceable<T & Record<K, E>>;
     guard: (f: (x: T) => boolean, orError: (x: T) => Error) => Traceable<T>;
     merge: <E extends object>(f: (x: T) => E) => Traceable<E>;
     trace: () => Promise<T>;
 }
 
 export const Traceable = <T extends object>(p: Promise<T>): Traceable<T> => ({
-    add: <K extends string, E extends object>(key: K, findClue: (x: T) => Promise<E>) =>
+    add: <K extends string, E>(key: K, findClue: (x: T) => Promise<E>): Traceable<T & Record<K, E>> =>
         Traceable(p.then(x => findClue(x).then(y => ({ ...x, [key]: y }) as T & Record<K, E>))),
 
     guard: (f: (x: T) => boolean, orError: (x: T) => Error) =>
