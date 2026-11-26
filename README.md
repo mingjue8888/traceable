@@ -73,7 +73,7 @@ Traceable is the core of this toolkit; it requires a promise that resolves to a 
 
 ```typescript
 interface Traceable<T extends object> {
-    add: <K extends string, E>(key: K, findClue: (x: T) => Promise<E>) => Traceable<T & Record<K, E>>;
+    add: <K extends string, E>(key: K, findClue: (x: T) => E | Promise<E>) => Traceable<T & Record<K, E>>;
     guard: (f: (x: T) => boolean, orError: (x: T) => Error) => Traceable<T>;
     merge: <E extends object>(f: (x: T) => E) => Traceable<E>;
     trace: () => Promise<T>;
@@ -97,7 +97,7 @@ Extract further data based on existing data, and consolidate all the data into a
 #### Signature
 
 ```typescript
-declare function add<K extends string, T extends object, E>(key: K, findClue: (x: T) => Promise<E>): Traceable<T & Record<K, E>>;
+declare function add<K extends string, T extends object, E>(key: K, findClue: (x: T) => E | Promise<E>): Traceable<T & Record<K, E>>;
 ```
 
 ### guard
